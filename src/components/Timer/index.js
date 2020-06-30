@@ -3,7 +3,7 @@ import QuestionContext from '../../utils/QuestionContext';
 import "./style.css"; 
 
 function CardContainer() {
-  const { question, handleNextClick } = useContext(QuestionContext);
+  const { question, handleTimer } = useContext(QuestionContext);
   const [flag, setFlag] = useState(false);
 
 //Making sure question array is not undefined
@@ -15,16 +15,11 @@ function CardContainer() {
   return(
         <>
      { flag &&
-        (<div className="card text-center">
-            <h2 className="card-header text-white bg-info"> {question.question} </h2>
-            <ul className="list-group list-group-flush">
-                {question.options.map(option => (
-                    <li onClick={handleNextClick} className="list-group-item" key={option}>{option}</li>
-                    ))}
-            </ul>
-            <div className="card-footer text-muted small">
-                {question.level}
-            </div> 
+        (<div id="countdown">
+            <div id="countdown-number">180</div>
+            <svg>
+            <circle r="18" cx="20" cy="20"></circle>
+            </svg>
         </div>)}
     </>
     )

@@ -3,6 +3,7 @@ import API from "../utils/API";
 import QuestionContext from "../utils/QuestionContext";
 import CardContainer from "../components/CardContainer";
 import Timer from "../components/Timer";
+import "./quiz.css";
 
 function Quiz(){
     const [questions, setQuestions] = useState([]);
@@ -52,7 +53,7 @@ function Quiz(){
                     <div className="col-sm-9 col-md-9 col-lg-9">
                         <CardContainer />
                     </div>
-                    <div className="col-sm-3 col-md-3 col-lg-3">
+                    <div className="col-sm-3 col-md-3 col-lg-3 circle">
                         <Timer />
                     </div>
                 </div>
