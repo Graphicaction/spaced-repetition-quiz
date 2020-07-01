@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import QuestionContext from '../../utils/QuestionContext';
 import "./style.css"; 
 
-function CardContainer() {
+function CardContainer(props) {
   const { question, handleNextClick } = useContext(QuestionContext);
   const [flag, setFlag] = useState(false);
 
@@ -19,7 +19,11 @@ function CardContainer() {
             <h2 className="card-header text-white bg-info"> {question.question} </h2>
             <ul className="list-group list-group-flush">
                 {question.options.map(option => (
-                    <li onClick={handleNextClick} className="list-group-item" key={option}>{option}</li>
+                    <li onClick={handleNextClick} 
+                    className="list-group-item" 
+                    value={option}
+                    onChange={props.handleInputChange}
+                    key={option}>{option}</li>
                     ))}
             </ul>
             <div className="card-footer text-muted small">

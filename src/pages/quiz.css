@@ -1,3 +1,6 @@
+.circleDiv {
+  background-color: #17a2b8;
+}
 #countdown {
     position: relative;
     margin: auto;
@@ -27,7 +30,7 @@
     stroke-dashoffset: 0px;
     stroke-linecap: round;
     stroke-width: 2px;
-    stroke: yellowgreen;
+    stroke: white;
     fill: none;
     animation: countdown 75s linear 1 forwards;
   }

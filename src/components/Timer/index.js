@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import QuestionContext from '../../utils/QuestionContext';
 import "./style.css"; 
 
-function CardContainer() {
-  const { question, handleTimer } = useContext(QuestionContext);
+function CardContainer(props) {
+  const { question } = useContext(QuestionContext);
   const [flag, setFlag] = useState(false);
 
 //Making sure question array is not undefined
@@ -16,7 +16,7 @@ function CardContainer() {
         <>
      { flag &&
         (<div id="countdown">
-            <div id="countdown-number">180</div>
+            <div id="countdown-number">{props.time}</div>
             <svg>
             <circle r="18" cx="20" cy="20"></circle>
             </svg>
