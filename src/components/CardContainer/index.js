@@ -19,15 +19,13 @@ function CardContainer(props) {
             <h2 className="card-header text-white bg-info"> {question.question} </h2>
             <ul className="list-group list-group-flush">
                 {question.options.map(option => (
-                    <li onClick={handleNextClick} 
+                    <li onClick={ ()=> handleNextClick({option}) } 
                     className="list-group-item" 
-                    value={option}
-                    onChange={props.handleInputChange}
                     key={option}>{option}</li>
                     ))}
             </ul>
             <div className="card-footer text-muted small">
-                {question.level}
+                Difficulty level: {question.level}
             </div> 
         </div>)}
     </>

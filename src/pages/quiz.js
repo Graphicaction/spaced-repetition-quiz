@@ -11,10 +11,12 @@ function Quiz(){
     const [questionIndex, setQuestionIndex] = useState(0);
     const [time, setTime] = useState(180);
     const [answer, setAnswer] = useState();
+    const [score, setScore] = useState();
     
     // When the component mounts, a call will be made to get questions.
     useEffect(() => {
       loadQuestions();
+      setScore(0);
     }, []);
   
     function loadQuestions() {
@@ -34,15 +36,25 @@ function Quiz(){
         setQuestionIndex(questionIndex);
         setQuestion(questions[questionIndex]);
       }
-        
-      const handleInputChange = event => {
-        setAnswer(event.target.value);
-      };
-
-      function handleNextClick(event) {
-        // Go to next question
+      
+      function handleNextClick(option) {
+        // Setting answer
+        let answer =  option.option;
+        tallyAnswer(answer);
+        //loading next question
         const newQuestionIndex = questionIndex + 1;
         nextQuestion(newQuestionIndex);
+      }
+
+      const tallyAnswer = (answer) => {
+        //Checking if answer is correct or not and updating score accordinly
+        let points = 0;
+        if(questions[questionIndex].answer === answer){
+            points = score + 10
+         }else {
+            points = score - 10;
+         }
+        setScore(score => points);
       }
 
       function handleTimer(event) {
@@ -71,7 +83,7 @@ function Quiz(){
             <QuestionContext.Provider value={{ question, handleNextClick, handleTimer }}>
                 <div className="row">
                     <div className="col-sm-9 col-md-9 col-lg-9">
-                        <CardContainer handleInputChange = {handleInputChange} />
+                        <CardContainer />
                     </div>
                     <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
                         <Timer time={time} />
