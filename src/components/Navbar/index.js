@@ -4,7 +4,7 @@ import React from "react";
 function Navbar() {
   return (
     <nav className="navbar navbar-dark bg-dark">
-      <h3 className="navbar-brand">React Quiz</h3>
+      <h1 className="navbar-brand">L2W Quiz</h1>
     </nav>
   );
 }
