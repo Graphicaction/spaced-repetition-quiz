@@ -3,13 +3,15 @@ import QuestionContext from '../../utils/QuestionContext';
 import "./style.css"; 
 
 function CardContainer(props) {
-  const { question, handleNextClick } = useContext(QuestionContext);
+  const { question, questions, handleNextClick } = useContext(QuestionContext);
   const [flag, setFlag] = useState(false);
 
 //Making sure question array is not undefined
   useEffect(()=>{
-    if(question !== undefined)
+    if(question !== undefined && question.id <= questions.length){
         setFlag(true);
+        props.handleTimer(5);
+    }
   },[question])
   
   return(

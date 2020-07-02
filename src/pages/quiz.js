@@ -9,8 +9,8 @@ function Quiz(){
     const [questions, setQuestions] = useState([]);
     const [question, setQuestion] = useState({});
     const [questionIndex, setQuestionIndex] = useState(0);
-    const [time, setTime] = useState(180);
-    const [answer, setAnswer] = useState();
+    const [time, setTime] = useState(5);
+    //const [answer, setAnswer] = useState();
     const [score, setScore] = useState();
     
     // When the component mounts, a call will be made to get questions.
@@ -28,19 +28,22 @@ function Quiz(){
         .catch(err => console.log(err));
     }
 
-    function nextQuestion(questionIndex) {
+    function nextQuestion(newQuestionIndex) {
         // Ensure that the question index stays within our range of questions
-        if (questionIndex >= questions.length) {
-          questionIndex = 0;
+        if (newQuestionIndex >= questions.length) {
+         alert("All done!");
+          return;
         }
-        setQuestionIndex(questionIndex);
-        setQuestion(questions[questionIndex]);
+        setQuestionIndex(newQuestionIndex);
+        setQuestion(questions[newQuestionIndex]);
       }
       
       function handleNextClick(option) {
         // Setting answer
-        let answer =  option.option;
-        tallyAnswer(answer);
+        if(option !== ""){
+          let answer =  option.option;
+          tallyAnswer(answer);
+        }
         //loading next question
         const newQuestionIndex = questionIndex + 1;
         nextQuestion(newQuestionIndex);
@@ -57,33 +60,46 @@ function Quiz(){
         setScore(score => points);
       }
 
-      function handleTimer(event) {
+      function handleTimer(questionTime) {
         // Go to next question
-        let countdown = time, message = "";
-        setInterval(function() {
+        let countdown = questionTime, message = "";
+        let length = questions.length;
+        let index = questionIndex;
+        let myInterval = setInterval(function() {
           countdown = --countdown <= 0 ? 0 : countdown;
           if(countdown !== 0) {
               setTime(time);
           }else {
-              if(countdown <= 0) {
-                  message = "Time Up!";
+            console.log("currently at question " + index + "out of " + length);
+        
+            if( countdown <=0 && (index < length)) {
+              console.log("less than length");
+              clearInterval(myInterval);
+              handleNextClick("");
+            }else if(countdown <= 0 && (index >= length)) {
+              console.log("greater than length");
+                  message = "All done!";
                   setTimeout(() => {
-                      // clearStatusClass(document.body);
-                      // displayScore();    
+                    clearInterval(myInterval);
+                      displayScore(message);    
                   }, 1000)
-              }
+              } 
               setTime("");
           }
       }, 1000);     
       }
 
+      const displayScore = (message) => {
+        alert(message);
+      }
+
     return (
         <div className="container mt-5">
             {questions.length ? (
-            <QuestionContext.Provider value={{ question, handleNextClick, handleTimer }}>
+            <QuestionContext.Provider value={{ question, questions, handleNextClick }}>
                 <div className="row">
                     <div className="col-sm-9 col-md-9 col-lg-9">
-                        <CardContainer />
+                        <CardContainer handleTimer={handleTimer} />
                     </div>
                     <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
                         <Timer time={time} />

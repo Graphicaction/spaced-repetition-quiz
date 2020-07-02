@@ -7,7 +7,6 @@ const QuestionContext = React.createContext({
   options: [],
   level: "",
   handleNextClick: () => {},
-  handleTimer: () => {}
 });
 
 export default QuestionContext;
