@@ -4,42 +4,42 @@
       "question": "Calculate number of 1s in a binary number(num)",
       "answer":"num.split('0').join('').length",
       "options":["num.split('0').length","num.split('1').length","(num % 10).length","num.split('0').join('').length"],
-      "level": "Hard"
+      "level": 5
     },
     {
         "id": 2,
         "question": "How to shift array elements to right in javascript",
         "answer":"arr.unshift.apply(arr, arr.splice(arr.length-1,1))",
         "options":["arr.concat(arr.splice(0,1))","arr.unshift.apply(arr, arr.splice(arr.length-1,1))","arr.push.apply(arr, arr.splice(0,1))","arr.concat(arr, arr.splice(arr.length-1,1))"],
-        "level": "Hard"
+        "level": 5
     },
     {
         "id": 3,
         "question": "Why Redux saga is used?",
         "answer":"To make application side effects easier to handle and more efficient to execute",
         "options":["To support synchronous data flow only","It allows us to write HTML in React","To make application side effects easier to handle and more efficient to execute","It is a react life cycle method"],
-        "level": "Moderate"
+        "level": 3
     },
     {
         "id": 4,
         "question": "What does side effects mean in react",
         "answer":"A function is said to have side effect if it trys to modify anything outside its body",
         "options":["Side Effect is a react-specific term","A function is said to have side effect if it trys to modify anything outside its body","Side effect is a lifecycle method in Reactjs"],
-        "level": "Moderate"
+        "level": 3
     },
     {
         "id": 5,
         "question": "Functional components in react are: ",
         "answer":"JS function",
         "options":["JSX code inside render function","react classes in a react component","constructor inside classes","JS function"],
-        "level": "Easy"
+        "level": 2
     },
     {
         "id": 6,
         "question": "What is react.js?",
         "answer":"JavaScript Library",
         "options":["JavaScript Library","JavaScript Framework","JavaScript IDE","Programming language","JSX code inside js file"],
-        "level": "Easy"
+        "level": 1
     }
   ]
   
