@@ -18,7 +18,7 @@
         "question": "Why Redux saga is used?",
         "answer":"To make application side effects easier to handle and more efficient to execute",
         "options":["To support synchronous data flow only","It allows us to write HTML in React","To make application side effects easier to handle and more efficient to execute","It is a react life cycle method"],
-        "level": 3
+        "level": 4
     },
     {
         "id": 4,
@@ -29,13 +29,41 @@
     },
     {
         "id": 5,
-        "question": "Functional components in react are: ",
-        "answer":"JS function",
-        "options":["JSX code inside render function","react classes in a react component","constructor inside classes","JS function"],
-        "level": 2
+        "question": "What is 'Virtual-DOM' in React?",
+        "answer":"Virtual DOM is an abstraction of the HTML DOM",
+        "options":["Virtual DOM is an abstraction of the HTML DOM","Virtual DOM is virtual memory concept of OS","Virtual DOM is an data of the JSX","Virtual DOM is a built-in JS function"],
+        "level": 3
     },
     {
         "id": 6,
+        "question": "What is React.createClass?",
+        "answer":"React.createClass allows us to generate component classes",
+        "options":["React.createClass is a JavaScript Library","React.createClass is a sub method of useCallback hook","React.createClass allows us to write classes in hooks","React.createClass allows us to generate component classes"],
+        "level": 2
+    },
+    {
+        "id": 7,
+        "question": "Presentational components in react are: ",
+        "answer":"They are ‘stateless component’, for which a pure function can be used",
+        "options":["Presentational components are components we present in JSX format","They are ‘stateless component’, for which a pure function can be used","Presentational components are components with state","Presentational components are simple JS function"],
+        "level": 2
+    },
+    {
+        "id": 8,
+        "question": "How do you use hook in react?",
+        "answer":"We import the useState Hook from React",
+        "options":["Hook needs to install in React seperately","Hooks are built-in functions of react.createClass","Hooks can be downloaded from JavaScript IDE","We export the useState Hook from React","We import the useState Hook from React"],
+        "level": 2
+    },
+    {
+        "id": 9,
+        "question": "Functional components in react are: ",
+        "answer":"JS function",
+        "options":["JSX code inside render function","react classes in a react component","constructor inside classes","JS function"],
+        "level": 1
+    },
+    {
+        "id": 10,
         "question": "What is react.js?",
         "answer":"JavaScript Library",
         "options":["JavaScript Library","JavaScript Framework","JavaScript IDE","Programming language","JSX code inside js file"],

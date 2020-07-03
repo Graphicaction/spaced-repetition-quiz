@@ -16,12 +16,12 @@ function Quiz(){
     const [myInterval,setCurrentInterval] = useState();
     let clear = true, totalTime = 0;
         
-    // When the component mounts, a call will be made to get questions.
-    useEffect(() => {
-      loadQuestions();
-    }, []);
+  // When the component mounts, a call will be made to get questions.
+  useEffect(() => {
+    loadQuestions();
+  }, []);
   
-  function loadQuestions() {
+  const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
           // return new question array with time col  
@@ -32,10 +32,11 @@ function Quiz(){
               })
           return newQuestions;
       })
-      .then(questions => {
+      .then(unSortedQuestions => {
+       const sortedQuestions = sortByDifficultyLevel(unSortedQuestions);
         //Setting states for rendering correspoing components
-        setQuestions(questions);
-        setQuestion(questions[0]);
+        setQuestions(sortedQuestions);
+        setQuestion(sortedQuestions[0]);
         setNewQuestion(true);
         setTime(totalTime);
         setNewTime(true);
@@ -43,16 +44,23 @@ function Quiz(){
       .catch(err => console.log(err));
   }
 
-  function nextQuestion(newQuestionIndex, option) {
+  const sortByDifficultyLevel = (unSortedQuestions) => {
+     // Sort this.state.employees by years
+     const sortedQuestions = unSortedQuestions.sort((a,b) => {
+      return b.level - a.level;
+    })
+    return sortedQuestions;
+  }
+
+  const nextQuestion = (newQuestionIndex, option) => {
     // Setting answer 
     let answer = "";
     option !== ""? answer =  option.option : answer = "";
       tallyAnswer(answer);
     // Ensure that the question index stays within our range of questions
       if (newQuestionIndex >= questions.length) {
-        let message = "All done!";
         clearInterval(myInterval);
-        displayScore(message);   
+        displayScore();   
         return; 
       }
       clearInterval(myInterval);
@@ -62,7 +70,7 @@ function Quiz(){
       setNewQuestion(true);
   }
       
-  function handleNextClick(option) {
+  const handleNextClick = (option) => {
     clearInterval(myInterval);
     //loading next question
     const newQuestionIndex = questionIndex + 1;
@@ -72,16 +80,17 @@ function Quiz(){
   const tallyAnswer = (answer) => {
     //Checking if answer is correct or not and updating score accordinly
     let points = 0;
-    console.log(time);
     if(questions[questionIndex].answer === answer){
         points = score + 10
+        //questions[questionIndex].level -= 1;  //If answer is right decrease its difficulty level by 1
       }else {
         points = score - 10;
+        //questions[questionIndex].level += 1;  //If answer is wrong or not answered increase its difficulty level by 1
       }
     setScore(score => points);
   }
 
-    function handleTimer(questionTime) {
+  const handleTimer = (questionTime) => {
       // Go to next question
       let countdown = questionTime;
       clearInterval(myInterval);
@@ -104,9 +113,8 @@ function Quiz(){
     }
   }
   
-  const displayScore = (message) => {
+  const displayScore = () => {
     setQuestions([]);
-    alert(message);
     clear = false;
   }
 
