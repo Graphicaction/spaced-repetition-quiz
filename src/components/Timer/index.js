@@ -16,7 +16,7 @@ function CardContainer(props) {
         <>
      { flag &&
         (<div id="countdown">
-            <div id="countdown-number">{question.time}</div>
+            <div id="countdown-number">{props.time}</div>
             <svg>
             <circle r="18" cx="20" cy="20"></circle>
             </svg>
