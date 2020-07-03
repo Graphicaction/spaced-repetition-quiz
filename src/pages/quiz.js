@@ -14,8 +14,9 @@ function Quiz(){
     const [newTime, setNewTime] = useState(false);
     //const [answer, setAnswer] = useState();
     const [score, setScore] = useState();
-    let myInterval;
-    
+    const [myInterval,setCurrentInterval] = useState();
+    let clear = true;
+        
     // When the component mounts, a call will be made to get questions.
     useEffect(() => {
       loadQuestions();
@@ -50,9 +51,11 @@ function Quiz(){
         if (newQuestionIndex >= questions.length) {
           let message = "All done!";
           clearInterval(myInterval);
-          displayScore(message);    
-          return;
+          displayScore(message);   
+          return; 
         }
+        clearInterval(myInterval);
+        //set new question
         setQuestionIndex(newQuestionIndex);
         setQuestion(questions[newQuestionIndex]);
         setNewQuestion(true);
@@ -82,27 +85,35 @@ function Quiz(){
       }
 
     function handleTimer(questionTime) {
+      console.log("after handle call");
       // Go to next question
       let countdown = questionTime;
-      console.log("now my q index is ", questionIndex)
-      
-        myInterval = setInterval(function() {
+      clearInterval(myInterval);
+      //Setting time interval for each question
+      if(questionIndex < questions.length){
+        const currentInterval = setInterval(function() {
+          if(!clear)
+            return;
           countdown = --countdown <= 0 ? 0 : countdown;
           if(countdown !== 0) {
-            setTime(questionTime);
             setNewTime(true);
-          }else {
+          }else if(countdown <= 0){
+            console.log("count is 0 for current interval ", myInterval)
             const newQuestionIndex = questionIndex + 1;
             clearInterval(myInterval);
             nextQuestion(newQuestionIndex);
           }
-        }, 1000);     
-      
+        }, 1000);
+        setCurrentInterval(currentInterval);
     }
+      console.log("Current interval in hadleTimer is ", myInterval);
+  }
+  
 
       const displayScore = (message) => {
         setQuestions([]);
         alert(message);
+        clear = false;
       }
 
     return (
@@ -119,7 +130,7 @@ function Quiz(){
                 </div>
             </QuestionContext.Provider>
             ): 
-            (<h5 className="center">Your Score is {score}</h5>)
+            (<h1 className="text-center">Your Score is {score}</h1>)
             }
         </div>
       );
