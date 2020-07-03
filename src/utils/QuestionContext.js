@@ -3,7 +3,7 @@ import React from "react";
 const QuestionContext = React.createContext({
   id: "",
   question: "",
-  answers: [],
+  answer: [],
   options: [],
   level: "",
   time: 0,
