@@ -15,6 +15,7 @@ function Quiz(){
     const [score, setScore] = useState(0);
     const [myInterval,setCurrentInterval] = useState();
     let clear = true, totalTime = 0;
+    const root = document.documentElement;
         
   // When the component mounts, a call will be made to get questions.
   useEffect(() => {
@@ -40,6 +41,7 @@ function Quiz(){
         setNewQuestion(true);
         setTime(totalTime);
         setNewTime(true);
+        setCSSVariable();
       })
       .catch(err => console.log(err));
   }
@@ -50,6 +52,10 @@ function Quiz(){
       return b.level - a.level;
     })
     return sortedQuestions;
+  }
+
+  const setCSSVariable = () =>{
+    root.style.setProperty('--time', totalTime);
   }
 
   const nextQuestion = (newQuestionIndex, option) => {
@@ -100,9 +106,7 @@ function Quiz(){
           if(!clear)
             return;
           countdown = --countdown <= 0 ? 0 : countdown;
-          if(countdown !== 0) {
-            setNewTime(true);
-          }else if(countdown <= 0){
+          if(countdown <= 0){
             //If time up for the question go to next question
             const newQuestionIndex = questionIndex + 1;
             clearInterval(myInterval);
@@ -121,16 +125,17 @@ function Quiz(){
   return (
       <div className="container mt-5">
           {questions.length ? (
-          <QuestionContext.Provider value={{ question, questions, handleNextClick, handleTimer }}>
-              <div className="row">
-                  <div className="col-sm-9 col-md-9 col-lg-9">
-                  {(newQuestion && <CardContainer />)}
-                  </div>
-                  <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
-                    {(newTime && <Timer time={time} />)}
-                  </div>
+            <div className="row">
+              <QuestionContext.Provider value={{ question, questions, handleNextClick, handleTimer }}>
+                <div className="col-sm-9 col-md-9 col-lg-9">
+                {(newQuestion && <CardContainer />)}
+                </div>
+              </QuestionContext.Provider>
+              <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
+                { 
+                (newTime && <Timer time={time} />)}
               </div>
-          </QuestionContext.Provider>
+            </div>
           ): 
           (<h1 className="text-center">Your Score is {score}</h1>)
           }
