@@ -1,6 +1,6 @@
-# Miles 4 Smiles
+# Spaced Repetition Quiz
 
-![Github license](https://img.shields.io/badge/License-MIT-yellow.svg) ![Build Status](https://img.shields.io/badge/build-passing-green.svg)
+![Build Status](https://img.shields.io/badge/build-passing-green.svg)
 
 ## Table of Content
 
