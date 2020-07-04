@@ -14,7 +14,7 @@
 Coding quiz based on spaced repetition algorithm allowing users to get focus more on harder concepts by getting more time if they answer the questions wrong.
 Powered by MERN stack.
 
-![Screenshot](client/public/images/algorithm.png 'algorithm')
+![Screenshot](images/algorithm.png 'algorithm')
 
 ## Installation
 
