@@ -88,11 +88,20 @@ function Quiz(){
     let points = 0;
     if(questions[questionIndex].answer === answer){
         points = score + 10
-        //questions[questionIndex].level -= 1;  //If answer is right decrease its difficulty level by 1
+        questions[questionIndex].level -= 1;  //If answer is right move the question card into right deck by 1
       }else {
         points = score - 10;
-        //questions[questionIndex].level += 1;  //If answer is wrong or not answered increase its difficulty level by 1
+        questions[questionIndex].level += 1;  //If answer is wrong move the question card into left deck by 1
       }
+    API.updateQuestion(questions[questionIndex]._id,{
+      level: questions[questionIndex].level 
+    })
+    .then((res) => {
+      console.log("Record updated!");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     setScore(score => points);
   }
 
