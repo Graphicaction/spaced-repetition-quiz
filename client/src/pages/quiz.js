@@ -62,11 +62,11 @@ function Quiz(){
     // Setting answer 
     let answer = "";
     option !== ""? answer =  option.option : answer = "";
-      tallyAnswer(answer);
+    const points = tallyAnswer(answer);
     // Ensure that the question index stays within our range of questions
       if (newQuestionIndex >= questions.length) {
         clearInterval(myInterval);
-        displayScore();   
+        displayScore(points);   
         return; 
       }
       clearInterval(myInterval);
@@ -74,6 +74,7 @@ function Quiz(){
       setQuestionIndex(newQuestionIndex);
       setQuestion(questions[newQuestionIndex]);
       setNewQuestion(true);
+      setScore(score => points);
   }
       
   const handleNextClick = (option) => {
@@ -102,7 +103,7 @@ function Quiz(){
     .catch((err) => {
       console.log(err);
     });
-    setScore(score => points);
+    return points;
   }
 
   const handleTimer = (questionTime) => {
@@ -126,9 +127,10 @@ function Quiz(){
     }
   }
   
-  const displayScore = () => {
+  const displayScore = (points) => {
     setQuestions([]);
     clear = false;
+    setScore(score => points);
   }
 
   return (
@@ -151,5 +153,4 @@ function Quiz(){
       </div>
     );
 }
-
 export default Quiz;

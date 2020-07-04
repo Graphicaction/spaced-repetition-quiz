@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import QuestionContext from '../../utils/QuestionContext';
-import "./style.css"; 
 
-function CardContainer(props) {
+function Timer(props) {
   const { question } = useContext(QuestionContext);
   const [totalTime, setTotalTime] = useState(0);
-  const [flag, setFlag] = useState(false);
-
+ 
 //Making sure question array is not undefined
   useEffect(()=>{
     if(question !== undefined){
-      setFlag(true);
       setTotalTime(props.time);
       startCountdown();
     }
@@ -43,5 +40,5 @@ function CardContainer(props) {
     )
   }
   
-  export default CardContainer;
+  export default Timer;
 
