@@ -8,7 +8,7 @@ function CardContainer() {
 
 //Making sure question array is not undefined
   useEffect(()=>{
-    if(question !== undefined && question.id <= questions.length){
+    if(question !== undefined){
         setFlag(true);
         handleTimer(question.time);
     }

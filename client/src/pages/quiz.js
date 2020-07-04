@@ -24,24 +24,23 @@ function Quiz(){
   const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
-          console.log(res);
-          // return new question array with time col  
-          // const newQuestions = res.map(question => {
-          //     question.time = 5 * question.level;
-          //     totalTime += question.time;
-          //     return question;     
-          //     })
-          // return newQuestions;
+          //return new question array with time col 
+          const newQuestions = res.data.questions.map(question => {
+              question.time = 5 * question.level;
+              totalTime += question.time;
+              return question;     
+              });
+          return newQuestions;
       })
-      // .then(unSortedQuestions => {
-      //  const sortedQuestions = sortByDifficultyLevel(unSortedQuestions);
-      //   //Setting states for rendering correspoing components
-      //   setQuestions(sortedQuestions);
-      //   setQuestion(sortedQuestions[0]);
-      //   setNewQuestion(true);
-      //   setTime(totalTime);
-      //   setNewTime(true);
-      // })
+      .then(unSortedQuestions => {
+       const sortedQuestions = sortByDifficultyLevel(unSortedQuestions);
+       //Setting states for rendering correspoing components
+        setQuestions(sortedQuestions);
+        setQuestion(sortedQuestions[0]);
+        setNewQuestion(true);
+        setTime(totalTime);
+        setNewTime(true);
+      })
       .catch(err => console.log(err));
   }
 
@@ -125,10 +124,10 @@ function Quiz(){
           <QuestionContext.Provider value={{ question, questions, handleNextClick, handleTimer }}>
               <div className="row">
                   <div className="col-sm-9 col-md-9 col-lg-9">
-                    {(newQuestion && <CardContainer />)}
+                  {(newQuestion && <CardContainer />)}
                   </div>
                   <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
-                    {(newTime &&<Timer time={time} />)}
+                    {(newTime && <Timer time={time} />)}
                   </div>
               </div>
           </QuestionContext.Provider>
