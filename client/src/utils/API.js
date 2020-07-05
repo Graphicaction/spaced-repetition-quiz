@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default {
-  // Saves new challenge
+  // Saves new question
   saveQuestion: function (questionData) {
     return axios.post('/api/questions', questionData);
   },
