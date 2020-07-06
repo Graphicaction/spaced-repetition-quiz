@@ -13,8 +13,7 @@ function Quiz(){
     const [newQuestion, setNewQuestion] = useState(false);
     const [newTime, setNewTime] = useState(false);
     const [score, setScore] = useState(0);
-    const [myInterval,setCurrentInterval] = useState();
-    let clear = false, totalTime = 0;
+    let totalTime = 0;
     const root = document.documentElement;
         
   // When the component mounts, a call will be made to get questions.
@@ -25,7 +24,7 @@ function Quiz(){
   const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
-          totalTime = res.data.questions.length * 15;
+         totalTime = 60//res.data.questions.length * 13;
           //return new question array with time col 
           const newQuestions = res.data.questions.map(question => {
               question.time = 5 * question.level;
@@ -41,7 +40,6 @@ function Quiz(){
         setNewQuestion(true);
         setTime(totalTime);
         setNewTime(true);
-        clear = true;
         setCSSVariable();
       })
       .catch(err => console.log(err));
@@ -66,12 +64,10 @@ function Quiz(){
     const points = tallyAnswer(answer);
     // Ensure that the question index stays within our range of questions
       if (newQuestionIndex >= questions.length) {
-        clearInterval(myInterval);
         setScore(score => points);
         displayScore(points);   
         return; 
       }
-      clearInterval(myInterval);
       //set new question
       setQuestionIndex(newQuestionIndex);
       setQuestion(questions[newQuestionIndex]);
@@ -80,7 +76,6 @@ function Quiz(){
   }
       
   const handleNextClick = (option) => {
-    clearInterval(myInterval);
     //loading next question
     const newQuestionIndex = questionIndex + 1;
     nextQuestion(newQuestionIndex, option);
@@ -116,43 +111,20 @@ function Quiz(){
     return points;
   }
 
-  const handleTimer = (questionTime) => {
-      // Go to next question
-      let countdown = questionTime;
-      clearInterval(myInterval);
-      //Setting time interval for each question
-      if(questionIndex < questions.length){
-        const currentInterval = setInterval(function() {
-          if(!clear)
-            return;
-          countdown = --countdown <= 0 ? 0 : countdown;
-          if(countdown <= 0){
-            //If time up for the question go to next question
-            const newQuestionIndex = questionIndex + 1;
-            clearInterval(myInterval);
-            nextQuestion(newQuestionIndex, "");
-          }
-        }, 1000);
-        setCurrentInterval(currentInterval);
-    }
-  }
-  
   const displayScore = (points) => {
-    clearInterval(myInterval);
     setQuestions([]);
-    clear = false;
   }
 
   return (
       <div className="container mt-5">
           {questions.length ? (
             <div className="row">
-              <QuestionContext.Provider value={{ question, questions, handleNextClick, handleTimer }}>
+              <QuestionContext.Provider value={{ question, questions, handleNextClick }}>
                 <div className="col-sm-9 col-md-9 col-lg-9">
-                {(newQuestion && <CardContainer />)}
+                {(newQuestion && <CardContainer questionNumber={questionIndex} />)}
                 </div>
               </QuestionContext.Provider>
-                <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
+                <div className="col-sm-2 col-md-2 col-lg-2 circleDiv m-3">
                   {(newTime && <Timer time={time} displayScore={displayScore} />)}
                 </div>
             </div>
