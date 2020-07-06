@@ -66,6 +66,7 @@ function Quiz(){
     // Ensure that the question index stays within our range of questions
       if (newQuestionIndex >= questions.length) {
         clearInterval(myInterval);
+        setScore(score => points);
         displayScore(points);   
         return; 
       }
@@ -130,7 +131,6 @@ function Quiz(){
   const displayScore = (points) => {
     setQuestions([]);
     clear = false;
-    setScore(score => points);
   }
 
   return (
@@ -141,11 +141,11 @@ function Quiz(){
                 <div className="col-sm-9 col-md-9 col-lg-9">
                 {(newQuestion && <CardContainer />)}
                 </div>
-              </QuestionContext.Provider>
-              <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
-                { 
-                (newTime && <Timer time={time} />)}
-              </div>
+              
+                <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
+                  {(newTime && <Timer displayScore={displayScore} />)}
+                </div>
+                </QuestionContext.Provider>
             </div>
           ): 
           (<h1 className="text-center">Your Score is {score}</h1>)

@@ -2,13 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import QuestionContext from '../../utils/QuestionContext';
 
 function Timer(props) {
-  const { question } = useContext(QuestionContext);
+  const { question,questions } = useContext(QuestionContext);
   const [totalTime, setTotalTime] = useState(0);
  
 //Making sure question array is not undefined
   useEffect(()=>{
     if(question !== undefined){
-      setTotalTime(props.time);
+      setTotalTime(questions.length * 20);
       startCountdown();
     }
   },[question])
@@ -21,8 +21,9 @@ function Timer(props) {
       if(countdown !== 0) {
         setTotalTime(countdown);
       }else if(countdown <= 0){
-        //If time up for the question go to next question
+        //If time up clear interval and display score
         clearInterval(currentInterval);
+        props.displayScore();
       }
     }, 1000);
   }
