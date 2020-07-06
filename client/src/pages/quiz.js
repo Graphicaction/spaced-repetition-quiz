@@ -14,7 +14,8 @@ function Quiz(){
     const [newTime, setNewTime] = useState(false);
     const [score, setScore] = useState(0);
     const [myInterval,setCurrentInterval] = useState();
-    let clear = true, totalTime = 0;
+    //const [clear, setClear] =useState();
+    let clear = false, totalTime = 0;
     const root = document.documentElement;
         
   // When the component mounts, a call will be made to get questions.
@@ -25,10 +26,10 @@ function Quiz(){
   const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
+          totalTime = 30//res.data.questions.length * 20;
           //return new question array with time col 
           const newQuestions = res.data.questions.map(question => {
               question.time = 5 * question.level;
-              totalTime += question.time;
               return question;     
               });
           return newQuestions;
@@ -41,6 +42,7 @@ function Quiz(){
         setNewQuestion(true);
         setTime(totalTime);
         setNewTime(true);
+        clear = true;
         setCSSVariable();
       })
       .catch(err => console.log(err));
@@ -129,6 +131,7 @@ function Quiz(){
   }
   
   const displayScore = (points) => {
+    clearInterval(myInterval);
     setQuestions([]);
     clear = false;
   }
@@ -141,11 +144,10 @@ function Quiz(){
                 <div className="col-sm-9 col-md-9 col-lg-9">
                 {(newQuestion && <CardContainer />)}
                 </div>
-              
+              </QuestionContext.Provider>
                 <div className="col-sm-3 col-md-3 col-lg-3 circleDiv">
-                  {(newTime && <Timer displayScore={displayScore} />)}
+                  {(newTime && <Timer time={time} displayScore={displayScore} />)}
                 </div>
-                </QuestionContext.Provider>
             </div>
           ): 
           (<h1 className="text-center">Your Score is {score}</h1>)
