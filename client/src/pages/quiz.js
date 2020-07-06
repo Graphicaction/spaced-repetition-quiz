@@ -88,23 +88,31 @@ function Quiz(){
 
   const tallyAnswer = (answer) => {
     //Checking if answer is correct or not and updating score accordinly
-    let points = 0;
+    let points = 0, levelChanged = false;
     if(questions[questionIndex].answer === answer){
         points = score + 10
-        questions[questionIndex].level -= 1;  //If answer is right move the question card into right deck by 1
+        if(questions[questionIndex].level > 1){
+          questions[questionIndex].level -= 1;  //If answer is right move the question card into right deck by 1
+          levelChanged = true;
+        }
       }else {
         points = score - 10;
-        questions[questionIndex].level += 1;  //If answer is wrong move the question card into left deck by 1
+        if(questions[questionIndex].level < 5){
+          questions[questionIndex].level += 1;  //If answer is wrong move the question card into left deck by 1
+          levelChanged = true;
+        }
       }
-    API.updateQuestion(questions[questionIndex]._id,{
-      level: questions[questionIndex].level 
-    })
-    .then((res) => {
-      console.log("Record updated!");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    if(levelChanged){
+      API.updateQuestion(questions[questionIndex]._id,{
+        level: questions[questionIndex].level 
+      })
+      .then((res) => {
+        console.log("Record updated!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
     return points;
   }
 
