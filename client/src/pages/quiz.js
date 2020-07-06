@@ -14,7 +14,6 @@ function Quiz(){
     const [newTime, setNewTime] = useState(false);
     const [score, setScore] = useState(0);
     const [myInterval,setCurrentInterval] = useState();
-    //const [clear, setClear] =useState();
     let clear = false, totalTime = 0;
     const root = document.documentElement;
         
@@ -26,7 +25,7 @@ function Quiz(){
   const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
-          totalTime = 30//res.data.questions.length * 20;
+          totalTime = res.data.questions.length * 20;
           //return new question array with time col 
           const newQuestions = res.data.questions.map(question => {
               question.time = 5 * question.level;
