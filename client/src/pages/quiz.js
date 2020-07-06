@@ -25,7 +25,7 @@ function Quiz(){
   const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
-          totalTime = res.data.questions.length * 20;
+          totalTime = res.data.questions.length * 15;
           //return new question array with time col 
           const newQuestions = res.data.questions.map(question => {
               question.time = 5 * question.level;
