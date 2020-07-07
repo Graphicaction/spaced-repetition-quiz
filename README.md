@@ -25,6 +25,11 @@ Git clone and run the following command:
 
 ## Usage
 
+Setting up data in mongodb: 
+1.  Open shell and run 'mongod'.
+2.  Open another shell and cd '\spaced-repetition-quiz\client\src\utils\data'.
+3.  Run 'mongoimport --jsonArray --db questions --collection questions --file questions.json' command.
+
 ```
     npm run start
 ```

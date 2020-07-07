@@ -1,6 +1,4 @@
-{
-    "questions" :
-    [   
+[   
         {
         "question": "Calculate number of 1s in a binary number(num)",
         "answer":"num.split('0').join('').length",
@@ -61,6 +59,5 @@
             "options":["JavaScript Library","JavaScript Framework","JavaScript IDE","Programming language","JSX code inside js file"],
             "level": 1
         }
-    ]
-}
+]
   
