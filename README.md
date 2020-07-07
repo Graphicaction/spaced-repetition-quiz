@@ -7,7 +7,6 @@
 - [Description](#Description)
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Test](#Test)
 
 ## Description
 
@@ -30,10 +29,6 @@ Git clone and run the following command:
     npm run start
 ```
 
-## Test:
-
-```
-    npm run test
-```
+![Screenshot](images/homeScreen.png 'Home')
 
 <img src="https://avatars0.githubusercontent.com/u/28842469?v=4" width ="50px" height="50px"> 
