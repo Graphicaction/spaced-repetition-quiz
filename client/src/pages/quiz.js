@@ -24,8 +24,9 @@ function Quiz(){
   const loadQuestions = () => {
     API.getQuestions()
         .then(res => {
-         totalTime = 60//res.data.questions.length * 13;
-          //return new question array with time col 
+          //total time is calculated according to length of quiz
+         totalTime = res.data.questions.length * 13;
+          //return new question array with time for each ques 
           const newQuestions = res.data.questions.map(question => {
               question.time = 5 * question.level;
               return question;     
@@ -37,8 +38,8 @@ function Quiz(){
        //Setting states for rendering correspoing components
         setQuestions(sortedQuestions);
         setQuestion(sortedQuestions[0]);
-        setNewQuestion(true);
         setTime(totalTime);
+        setNewQuestion(true);
         setNewTime(true);
         setCSSVariable();
       })
@@ -46,19 +47,19 @@ function Quiz(){
   }
 
   const sortByDifficultyLevel = (unSortedQuestions) => {
-     // Sort this.state.employees by years
+     // Sort questions by dificulty level
      const sortedQuestions = unSortedQuestions.sort((a,b) => {
       return b.level - a.level;
     })
     return sortedQuestions;
   }
-
+  //Setting CSS root variable with total time for the animation of circle
   const setCSSVariable = () =>{
     root.style.setProperty('--time', totalTime);
   }
 
   const nextQuestion = (newQuestionIndex, option) => {
-    // Setting answer 
+    // Setting answer and calling tallyAnswer()
     let answer = "";
     option !== ""? answer =  option.option : answer = "";
     const points = tallyAnswer(answer);
@@ -113,6 +114,8 @@ function Quiz(){
 
   const displayScore = (points) => {
     setQuestions([]);
+    setNewQuestion(false);
+    setNewTime(false);
   }
 
   return (
