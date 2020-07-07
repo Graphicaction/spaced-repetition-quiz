@@ -61,7 +61,7 @@ function Quiz(){
   const nextQuestion = (newQuestionIndex, option) => {
     // Setting answer and calling tallyAnswer()
     let answer = "";
-    option !== ""? answer =  option.option : answer = "";
+    option !== ""? answer =  option : answer = "";
     const points = tallyAnswer(answer);
     // Ensure that the question index stays within our range of questions
       if (newQuestionIndex >= questions.length) {
