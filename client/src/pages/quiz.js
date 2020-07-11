@@ -18,7 +18,10 @@ function Quiz(){
         
   // When the component mounts, a call will be made to get questions.
   useEffect(() => {
-    loadQuestions();
+    let mount = true;
+    if(mount)
+      loadQuestions();
+    return () => mount = false;
   }, []);
   
   const loadQuestions = () => {

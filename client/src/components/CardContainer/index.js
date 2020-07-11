@@ -13,16 +13,24 @@ function CardContainer(props) {
 
 //Making sure question array is not undefined
   useEffect(()=>{
-    if(question !== undefined){
-      setFlag(true);
-      start(question.time * 1000);
+    let mount = true;
+    if(mount){
+      if(question !== undefined){
+        setFlag(true);
+        start(question.time * 1000);
+      }
     }
+    return () => mount = false;
   },[question])
 
   useEffect(()=>{
-    if(timeLeft === 0 && flag){
-      handleNextClick("");
+    let mount = true;
+    if(mount){
+      if(timeLeft === 0 && flag){
+        handleNextClick("");
+      }
     }
+    return () => mount = false;
   },[timeLeft])
 
   const msToSec = ms => (ms / 1000).toFixed(1);

@@ -7,10 +7,14 @@ function Timer(props) {
  
 //Making sure question array is not undefined
   useEffect(()=>{
-    if(question !== undefined){
-      setTotalTime(props.time);
-      startCountdown();
+    let mount = true;
+    if(mount) {
+      if(question !== undefined){
+        setTotalTime(props.time);
+        startCountdown();
+      }
     }
+    return () => mount = false;
   },[question])
 
   const startCountdown = () => {
