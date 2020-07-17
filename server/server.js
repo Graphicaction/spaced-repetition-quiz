@@ -9,9 +9,22 @@ const routes = require('./routes');
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../client/build"));
+// // Serve up static assets (usually on heroku)
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("../client/build"));
+// }
+
+// If it's production environment!
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  // console.log('YOU ARE IN THE PRODUCTION ENV');
+  app.use(
+    '/static',
+    express.static(path.join(__dirname, '../client/build/static'))
+  );
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/'));
+  });
 }
 
 // Connect to the Mongo DB
