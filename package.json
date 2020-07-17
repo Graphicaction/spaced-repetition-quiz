@@ -10,7 +10,8 @@
     "client": "cd client && npm run start",
     "install": "cd client && yarn install",
     "build": "cd client && npm run build",
-    "test": "cd client && npm run test"
+    "test": "cd client && npm run test",
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": "12.10.0",
