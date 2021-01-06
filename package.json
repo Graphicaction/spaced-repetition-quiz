@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "concurrently": "^5.2.0",
     "connect-mongo": "^2.0.1",
     "dotenv": "^8.2.0",
